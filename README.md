@@ -1,15 +1,85 @@
 # Freshwaters - Chemical oxygen demand in lakes
-This repository is for the source code of a Luonnontila web service indicator for [chemical oxygen demand in Finnish lakes](https://luonnontila.fi/indikaattorit-elinymparistoittain/sisavedet/kemiallinen-hapenkuluts/). The indicator is used to  for chemical oxygen demand in naturally humic and non-humic Finnish lakes. The indicator describes the general trend in the deposition of organic matter (e.g. humic substances) in Finnish lakes.
+This repository is for the source code of a Luonnontila web service indicator for [chemical oxygen demand in Finnish lakes](https://luonnontila.fi/indikaattorit-elinymparistoittain/sisavedet/kemiallinen-hapenkuluts/). The indicator describes the general trend in the deposition of organic matter (e.g. humic substances) in Finnish lakes. The background concentration of humic substances is strongly influenced by natural factors such as the amount of peatlands in the drainage areas and thus the indicator differentiates between the trends of the darker humic and clearer non-humic lakes.
 
-## Background
+The indicator is produced from an extensive series of water quality measurements of Finnish lakes, the first of which were taken already in 1960.
 
-The chemical oxygen demand of inland waters indicates the amount of organic matter in the water bodies and is thus closely related to the cocentration of humic substances. The background concentration of humic substances is strongly influenced by natural factors such as the amount of peatlands in the drainage areas, so the development of the indicator has separately taken into account darker humic and clearer non-humic lakes.
+## Structure and files in this repository
 
-The indicator is produced from an extensive series of water quality measurements of Finnish lakes, the first of which were taken already in 1960. 
+The project contains four main folders: **data**, **output**, **script** and **_targets**.  
+**data**: Contains data used for successful completion of the pipeline (i.e. a csv-file with a list of waterbodies included in the calculation).  
+**output**: Contains outputs prduced in the pipeline (e.g. analysis results).  
+**script**: Contains the necessary code determining the functions used in different parts of pipeline.  
+**_targets**: Contains objects produced and used by the **targets** package  
 
-## Code information
+Full structure and files in the repository:
 
-The code is written in **R** (version 4.2.1) and formatted to a **targets** package pipeline.
+```
++-- data
+|   +-- Otantalista_SV7_humuspitoisuus_jarvet_vesimuodostumat.csv
++-- output
+|   +-- COD_GAM_fit_tidy_ENG.csv
+|   +-- COD_GAM_fit_tidy_FIN.csv
+|   +-- COD_GAM_fit_tidy_SWE.csv
+|   +-- VESLA_COD_status.csv
+|   \-- VESLA_COD_trends.csv
++-- README.md
++-- script
+|   +-- Functions
+|   |   +-- Vesla_functions_COD.r
++-- VESLA_COD.Rproj
++-- _targets
+|   +-- meta
+|   |   +-- meta
+|   |   +-- process
+|   |   +-- progress
+|   |   +-- tar_temp_11609973cfe
+|   |   +-- tar_temp_217c49fa78ab
+|   |   +-- tar_temp_23c03dc43f5b
+|   |   \-- tar_temp_e141fe8258b
+|   +-- objects
+|   |   +-- COD_fit_GAM_trend_output_tidy
+|   |   +-- COD_fit_trend_output
+|   |   +-- COD_fit_trend_output_tidy
+|   |   +-- COD_status_output
+|   |   +-- COD_trend_new
+|   |   +-- COD_trend_old
+|   |   +-- COD_trend_output_combined
+|   |   +-- COD_trend_output_new
+|   |   +-- COD_trend_output_old
+|   |   +-- Comparison_COD
+|   |   +-- GAM_fit_COD
+|   |   +-- outputfile1
+|   |   +-- outputfile2
+|   |   +-- VESLA_COD_data_combined
+|   |   +-- VESLA_COD_minimum_timeframe
+|   |   +-- VESLA_query_data
+|   |   +-- VESLA_raw_query_data
+|   |   +-- VESLA_results
+|   |   +-- VESLA_samples
+|   |   +-- VESLA_sampling_events
+|   |   +-- VESLA_sites_all_results
+|   |   +-- VESLA_site_ids
+|   |   +-- VESLA_summary_COD_data_Lake
+|   |   +-- VESLA_summary_COD_data_Site
+|   |   +-- VESLA_summary_COD_data_Site_comparison
+|   |   +-- VESLA_summary_COD_data_Site_new
+|   |   +-- VESLA_summary_COD_data_Site_old
+|   |   \-- VESLA_summary_stats_Lake
+|   \-- user
+\-- _targets.R
+```
+## General information on the code
+
+The code is written in **R** (version 4.2.1) and takes advantage of R packages **targets**, **brms**, **readr**, **dplyr**, **tidyr**, **data.table** and **zoo**.
+
+The code for the indicator is primarily in two files: targets.R and Vesla_functions_COD.r. Below find a short description of contents in each of the files.
+
+### _targets.R 
+
+_targets.R -file determines the structure of the pipeline in the format required by the **targets** package. For more information on the logic of targets, see [targets manual](https://books.ropensci.org/targets/).
+
+### Vesla_functions_COD.r
+Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in three different stages of the pipeline: obtaining data, shaping data and analyzing data.
 
 ### Process description
 
