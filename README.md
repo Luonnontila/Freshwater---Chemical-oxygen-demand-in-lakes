@@ -85,7 +85,7 @@ Vesla_functions_COD.r determines the functions used in different steps of the pi
 
 In short, the process for the indicator production advances from **requesting data from the VESLA-database API** (, administrated by the Finnish Environment Institute) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure.
 
-![](test_process.html)
+An interactive graphical description of the process can be found [here](test_process.html)
 
 #### Process in a glimpse
 
