@@ -79,11 +79,11 @@ The code for the indicator is primarily in two files: targets.R and Vesla_functi
 _targets.R -file determines the structure of the pipeline in the format required by the **targets** package. For more information on the logic of targets, see [targets manual](https://books.ropensci.org/targets/).
 
 ### Vesla_functions_COD.r
-Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in three different stages of the pipeline: obtaining data, shaping data and analyzing data.
+Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in four different stages of the pipeline: (1) obtaining (functions starting with `get_VESLA_`), (2) shaping (functions starting with `shape_VESLA_data_`), (3) summarizing (funcitons starting with `summarize_VESLA_data_`), and (4) analyzing (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/).
 
 ### Process description
 
-In short, the process for the indicator production advances from **requesting data from the VESLA-database API** (, administrated by the Finnish Environment Institute) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure. This 
+In short, the process for the indicator production advances from **requesting data from the VESLA-database API** (, administrated by the Finnish Environment Institute) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure.
 
 #### Process in a glimpse
 
