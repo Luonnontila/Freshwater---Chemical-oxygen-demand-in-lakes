@@ -16,7 +16,6 @@ The project contains the following folders and files:
 - **script**: Contains the necessary code determining the functions used in different parts of pipeline.
   - **Functions**: Contains the function scripts used in the pipeline
     - **Vesla_functions_COD.r**: An R-code containing the script of all functions needed to execute the analysis pipeline.
-- **_targets**: Contains objects produced and used by the **targets** package (NOTE! Objects produced in the pipeline are not committed to this repository, but will be produced locally if run).
 - **run_targets_pipeline.r**: An R-code file containing commands to run the pipeline and produce outputs descriptive of the pipeline structure.
 
 Hierarchical folder structure and files in the repository:
@@ -34,10 +33,6 @@ Hierarchical folder structure and files in the repository:
 +-- script
 |   \-- Functions
 |   |   \-- Vesla_functions_COD.r
-+-- _targets
-|   +-- meta
-|   +-- objects
-|   \-- user
 \-- _targets.R
 ```
 ## General information on the code
