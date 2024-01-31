@@ -1,5 +1,5 @@
 # Freshwaters - Chemical oxygen demand in lakes
-This repository is for the source code of a Luonnontila web service indicator for [chemical oxygen demand in Finnish lakes](https://luonnontila.fi/indikaattorit-elinymparistoittain/sisavedet/kemiallinen-hapenkuluts/). The indicator describes the general trend in the deposition of organic matter (e.g. humic substances) in Finnish lakes. The background concentration of humic substances is strongly influenced by natural factors such as the amount of peatlands in the drainage areas and thus the indicator differentiates between the trends of the darker humic and clearer non-humic lakes.
+This repository is for the source code of a Luonnontila web service indicator for [chemical oxygen demand in Finnish lakes (COD)](https://luonnontila.fi/indikaattorit-elinymparistoittain/sisavedet/kemiallinen-hapenkuluts/). The indicator describes the general trend in the deposition of organic matter (e.g. humic substances) in Finnish lakes. The background concentration of humic substances is strongly influenced by natural factors such as the amount of peatlands in the drainage areas and thus the indicator differentiates between the trends of the darker humic and clearer non-humic lakes.
 
 The indicator is produced from an extensive series of water quality measurements of Finnish lakes, the first of which were taken already in 1960.
 
@@ -16,9 +16,9 @@ The project contains the following folders and files:
 - **script**: Contains the necessary code determining the functions used in different parts of pipeline.
   - **Functions**: Contains the function scripts used in the pipeline
     - **Vesla_functions_COD.r**: An R-file containing the script of all functions needed to execute the analysis pipeline.
-- **_targets**: Contains objects produced and used by the **targets** package (NOTE! Objects produced are not committed to this repository, but will be produced by the pipeline if run).
+- **_targets**: Contains objects produced and used by the **targets** package (NOTE! Objects produced in the pipeline are not committed to this repository, but will be produced locally if run).
 
-Full structure and files in the repository:
+Hierarchical folder structure and files in the repository:
 ```
 +-- data
 |   \-- Otantalista_SV7_humuspitoisuus_jarvet_vesimuodostumat.csv
@@ -47,16 +47,19 @@ The code for the indicator is primarily in two files: targets.R and Vesla_functi
 
 ## Analysis pipeline 
 
-In short, the process for the indicator production advances from **requesting data** from the Finnish Environment Institute administrated [VESLA 2.0 database API](https://rajapinnat.ymparisto.fi/api/vesla/2.0/) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure.
+In short, the process for the indicator production advances from **requesting data** from the Finnish Environment Institute administrated [VESLA 2.0 database API](https://rajapinnat.ymparisto.fi/api/vesla/2.0/) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure. Additional analyses to (1) determine the period of lowest COD across lakes, (2) current COD relative to the period of lowest COD, and (3) linear trend of COD from the year 2001 to present day. Outputs are then produced from these statistical models.
 
-The structure of the pipeline is in the format required by the **targets** package and it is configured in the _targets.R script file. 
-
-For more information on the logic and formatting of targets, see [targets manual](https://books.ropensci.org/targets/).
+The structure of the pipeline is in the format required by the **targets** package and it is configured in the `_targets.R` script file. For more information on the logic and formatting of targets, see [targets manual](https://books.ropensci.org/targets/).
 
 ### Vesla_functions_COD.r
-Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in four different stages of the pipeline: (1) obtaining (functions starting with `get_VESLA_`), (2) shaping (functions starting with `shape_VESLA_data_`), (3) summarizing (funcitons starting with `summarize_VESLA_data_`), and (4) analyzing (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/).
+Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in five different stages of the pipeline:  
+1. obtaining data (functions starting with `get_VESLA_`)
+2. restructuring and combining data (functions starting with `shape_VESLA_data_`),
+3. summarizing data (funcitons starting with `summarize_VESLA_data_`), and
+4. analyzing data (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/)
+5. producing outputs from data and analyses (functions starting with `output
 
-### Process description
+
 
 
 
