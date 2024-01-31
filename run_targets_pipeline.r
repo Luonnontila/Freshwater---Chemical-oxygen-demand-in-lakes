@@ -7,7 +7,7 @@ library(targets)
 tar_make()
 
 # Command to save the pipeline of produced objects in an html file 
-save_html(html = tar_glimpse(), "output/objects_pipeline.html")
+save_html(html = tar_glimpse(), "output/pipeline_network/objects_pipeline.html")
 
 # Command to save a graph depicting the produced objects and the functions used to produce them
-save_html(html = tar_visnetwork(), "output/network_pipeline.html")
+save_html(html = tar_visnetwork(), "output/pipeline_network/network_pipeline.html")
