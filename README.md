@@ -64,8 +64,8 @@ Circles depict different objects produced in the pipeline. Note that the graph c
 ### Guide to used functions
 Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in five different stages of the pipeline:  
 1. obtaining data (functions starting with `get_VESLA`)
-2. restructuring and combining data (functions starting with `shape_VESLA_data`),
-3. summarizing data (funcitons starting with `summarize_VESLA_data`), and
+2. restructuring and combining data (functions starting with `shape_VESLA_data`)
+3. summarizing data (funcitons starting with `summarize_VESLA_data`)
 4. analyzing data (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/)
 5. producing outputs from data and analyses (functions starting with `output_table_VESLA`)
 
