@@ -15,8 +15,9 @@ The project contains the following folders and files:
   - **VESLA_COD_trends.csv**: Describes linear trends in the data in two different time periods (1960-1999 and (2001-2023).
 - **script**: Contains the necessary code determining the functions used in different parts of pipeline.
   - **Functions**: Contains the function scripts used in the pipeline
-    - **Vesla_functions_COD.r**: An R-file containing the script of all functions needed to execute the analysis pipeline.
+    - **Vesla_functions_COD.r**: An R-code containing the script of all functions needed to execute the analysis pipeline.
 - **_targets**: Contains objects produced and used by the **targets** package (NOTE! Objects produced in the pipeline are not committed to this repository, but will be produced locally if run).
+- **run_targets_pipeline.r**: An R-code file containing commands to run the pipeline and produce outputs descriptive of the pipeline structure.
 
 Hierarchical folder structure and files in the repository:
 ```
@@ -29,10 +30,10 @@ Hierarchical folder structure and files in the repository:
 |   +-- VESLA_COD_status.csv
 |   \-- VESLA_COD_trends.csv
 +-- README.md
++-- run_targets_pipeline.r
 +-- script
 |   \-- Functions
 |   |   \-- Vesla_functions_COD.r
-+-- VESLA_COD.Rproj
 +-- _targets
 |   +-- meta
 |   +-- objects
@@ -41,36 +42,24 @@ Hierarchical folder structure and files in the repository:
 ```
 ## General information on the code
 
-The code is written in **R** (version 4.2.1) and takes advantage of R packages **targets**, **brms**, **readr**, **dplyr**, **tidyr**, **data.table** and **zoo**.
+The code is written in **R** (version 4.2.1) and takes advantage of R packages **targets**, **brms**, **readr**, **dplyr**, **tidyr**, **data.table**, **zoo** and **htmltools**.
 
 The code for the indicator is primarily in two files: targets.R and Vesla_functions_COD.r. The former determines the analysis pipeline and the latter the functions used in it.
 
 ## Analysis pipeline 
 
-In short, the process for the indicator production advances from **requesting data** from the Finnish Environment Institute administrated [VESLA 2.0 database API](https://rajapinnat.ymparisto.fi/api/vesla/2.0/) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure. Additional analyses to (1) determine the period of lowest COD across lakes, (2) current COD relative to the period of lowest COD, and (3) linear trend of COD from the year 2001 to present day. Outputs are then produced from these statistical models.
+In short, the process for the indicator production advances from **requesting data** from the Finnish Environment Institute administrated [VESLA 2.0 database API](https://rajapinnat.ymparisto.fi/api/vesla/2.0/) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure. Additional analyses to (1) determine the period of lowest COD across lakes, (2) current COD relative to the period of lowest COD, and (3) linear trend of COD from the year 2001 to present day are also produced in the pipeline. Outputs are then produced from these statistical models.
 
-The structure of the pipeline is in the format required by the **targets** package and it is configured in the `_targets.R` script file. For more information on the logic and formatting of targets, see [targets manual](https://books.ropensci.org/targets/).
+The structure of the pipeline is in the format required by the **targets** package and it is configured in the `_targets.R` script file. For more information on the logic and formatting of targets, see [targets manual](https://books.ropensci.org/targets/). At the end of the pipeline configuration 
+
+**An interactive graphical description of the pipeline can be found [here](test_process.html)**
 
 ### Vesla_functions_COD.r
 Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in five different stages of the pipeline:  
-1. obtaining data (functions starting with `get_VESLA_`)
-2. restructuring and combining data (functions starting with `shape_VESLA_data_`),
-3. summarizing data (funcitons starting with `summarize_VESLA_data_`), and
+1. obtaining data (functions starting with `get_VESLA`)
+2. restructuring and combining data (functions starting with `shape_VESLA_data`),
+3. summarizing data (funcitons starting with `summarize_VESLA_data`), and
 4. analyzing data (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/)
-5. producing outputs from data and analyses (functions starting with `output
+5. producing outputs from data and analyses (functions starting with `output_table_VESLA`)
 
-
-
-
-
-An interactive graphical description of the process can be found [here](test_process.html)
-
-#### Process in a glimpse
-
-#### Data sources
-
-#### Data processing
-
-#### Indicator calculation
-
-#### Descriptive statistics
+**An interactive graphical description of how different functions contribute to the process can be found [here](test_process.html)**
