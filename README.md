@@ -11,6 +11,10 @@ The project contains the following folders and files:
   - **Otantalista_SV7_humuspitoisuus_jarvet_vesimuodostumat.csv**: Determines the list of waterbodies included in the analysis.
 - **output**: Contains outputs produced by running the pipeline.
   - **COD_GAM_fit_tidy_ENG.csv**, **COD_GAM_fit_tidy_FIN.csv**, and **COD_GAM_fit_tidy_SWE.csv**: Indicator based on the fitted statistical model (plotted in the indicator webpage), with formatting matching to language abbreviation in the end of the file (English, Finnish and Swedish language).
+  - **pipeline_network**: Contains files needed to illustrate the analysis pipeline
+      - **lib**: Folders and files needed to correctly plot the analysis pipeline graphs (subfolders are specific to htmltools pacakges and not explained further).
+      - **network_pipeline.html**: html-file illustrating the pipeline directed acyclic graph of how the functions and their products are connected.
+      - **object_pipeline.html**: html-file illustrating the pipeline directed acyclic graph of how different objects relate to one another.
   - **VESLA_COD_status.csv**: Describes the status of the indicator in relation to the reference value.
   - **VESLA_COD_trends.csv**: Describes linear trends in the data in two different time periods (1960-1999 and (2001-2023).
 - **script**: Contains the necessary code determining the functions used in different parts of pipeline.
@@ -26,13 +30,20 @@ Hierarchical folder structure and files in the repository:
 |   +-- COD_GAM_fit_tidy_ENG.csv
 |   +-- COD_GAM_fit_tidy_FIN.csv
 |   +-- COD_GAM_fit_tidy_SWE.csv
+|   +-- pipeline_network
+|   |   +-- lib
+|   |   |   +-- htmlwidgets-1.5.4
+|   |   |   +-- vis-9.1.0
+|   |   |   \-- visNetwork-binding-2.1.2
+|   |   +-- network_pipeline.html
+|   |   \-- objects_pipeline.html
 |   +-- VESLA_COD_status.csv
 |   \-- VESLA_COD_trends.csv
 +-- README.md
 +-- run_targets_pipeline.r
 +-- script
 |   \-- Functions
-|   |   \-- Vesla_functions_COD.r
+|       \-- Vesla_functions_COD.r
 \-- _targets.R
 ```
 ## General information on the code
@@ -47,9 +58,10 @@ In short, the process for the indicator production advances from **requesting da
 
 The structure of the pipeline is in the format required by the **targets** package and it is configured in the `_targets.R` script file. For more information on the logic and formatting of targets, see [targets manual](https://books.ropensci.org/targets/). At the end of the pipeline configuration 
 
-**An interactive directed acyclic graph (DAG) flowchart description of the pipeline can be found [here](https://raw.githack.com/Luonnontila/Freshwater---Chemical-oxygen-demand-in-lakes/main/output/pipeline_network/objects_pipeline.html).** Circles depict different objects produced in the pipeline. Note that the graph can be zoomed (pinched), different objects moved (drag) and different parts highlighted (click on object) to enable easier reading.
+**An interactive directed acyclic graph (DAG) flowchart description of the pipeline can be found [here](https://raw.githack.com/Luonnontila/Freshwater---Chemical-oxygen-demand-in-lakes/main/output/pipeline_network/objects_pipeline.html).**  
+Circles depict different objects produced in the pipeline. Note that the graph can be zoomed (pinched), different objects moved (drag) and different parts highlighted (click on object) to enable easier reading.
 
-### Vesla_functions_COD.r
+### Guide to used functions
 Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in five different stages of the pipeline:  
 1. obtaining data (functions starting with `get_VESLA`)
 2. restructuring and combining data (functions starting with `shape_VESLA_data`),
@@ -57,4 +69,5 @@ Vesla_functions_COD.r determines the functions used in different steps of the pi
 4. analyzing data (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/)
 5. producing outputs from data and analyses (functions starting with `output_table_VESLA`)
 
-**An interactive directed acyclic graph (DAG) flowchart description of how different functions contribute to the process can be found [here](https://raw.githack.com/Luonnontila/Freshwater---Chemical-oxygen-demand-in-lakes/main/output/pipeline_network/network_pipeline.html).** Triangles depict different functions and circles objects produced in the pipeline. Note that the graph can be zoomed (pinch-to-zoom), different objects moved (drag) and different parts highlighted (click on object) to enable easier reading.
+**An interactive directed acyclic graph (DAG) flowchart description of how different functions contribute to the process can be found [here](https://raw.githack.com/Luonnontila/Freshwater---Chemical-oxygen-demand-in-lakes/main/output/pipeline_network/network_pipeline.html).**  
+Triangles depict different functions and circles objects produced in the pipeline. Note that the graph can be zoomed (pinch-to-zoom), different objects moved (drag) and different parts highlighted (click on object) to enable easier reading.
