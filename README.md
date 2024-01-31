@@ -47,7 +47,7 @@ In short, the process for the indicator production advances from **requesting da
 
 The structure of the pipeline is in the format required by the **targets** package and it is configured in the `_targets.R` script file. For more information on the logic and formatting of targets, see [targets manual](https://books.ropensci.org/targets/). At the end of the pipeline configuration 
 
-**An interactive graphical description of the pipeline can be found [here](test_process.html)**
+**An interactive directed acyclic graph (DAG) flowchart description of the pipeline can be found [here](https://raw.githack.com/Luonnontila/Freshwater---Chemical-oxygen-demand-in-lakes/main/output/pipeline_network/objects_pipeline.html).** Circles depict different objects produced in the pipeline. Note that the graph can be zoomed (pinched), different objects moved (drag) and different parts highlighted (click on object) to enable easier reading.
 
 ### Vesla_functions_COD.r
 Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in five different stages of the pipeline:  
@@ -57,4 +57,4 @@ Vesla_functions_COD.r determines the functions used in different steps of the pi
 4. analyzing data (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/)
 5. producing outputs from data and analyses (functions starting with `output_table_VESLA`)
 
-**An interactive graphical description of how different functions contribute to the process can be found [here](test_process.html)**
+**An interactive directed acyclic graph (DAG) flowchart description of how different functions contribute to the process can be found [here](https://raw.githack.com/Luonnontila/Freshwater---Chemical-oxygen-demand-in-lakes/main/output/pipeline_network/network_pipeline.html).** Triangles depict different functions and circles objects produced in the pipeline. Note that the graph can be zoomed (pinch-to-zoom), different objects moved (drag) and different parts highlighted (click on object) to enable easier reading.
