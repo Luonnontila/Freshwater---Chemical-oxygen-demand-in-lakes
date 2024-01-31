@@ -5,17 +5,23 @@ The indicator is produced from an extensive series of water quality measurements
 
 ## Structure and files in this repository
 
-The project contains four main folders: **data**, **output**, **script** and **_targets**.  
-**data**: Contains data used for successful completion of the pipeline (i.e. a csv-file with a list of waterbodies included in the calculation).  
-**output**: Contains outputs prduced in the pipeline (e.g. analysis results).  
-**script**: Contains the necessary code determining the functions used in different parts of pipeline.  
-**_targets**: Contains objects produced and used by the **targets** package  
+The project contains the following folders and files:
+
+- **data**: Contains data used for successful completion of the pipeline (i.e. a csv-file with a list of waterbodies included in the calculation).
+  - **Otantalista_SV7_humuspitoisuus_jarvet_vesimuodostumat.csv**: Determines the list of waterbodies included in the analysis.
+- **output**: Contains outputs produced by running the pipeline.
+  - **COD_GAM_fit_tidy_ENG.csv**, **COD_GAM_fit_tidy_FIN.csv**, and **COD_GAM_fit_tidy_SWE.csv**: Indicator based on the fitted statistical model (plotted in the indicator webpage), with formatting matching to language abbreviation in the end of the file (English, Finnish and Swedish language).
+  - **VESLA_COD_status.csv**: Describes the status of the indicator in relation to the reference value.
+  - **VESLA_COD_trends.csv**: Describes linear trends in the data in two different time periods (1960-1999 and (2001-2023).
+- **script**: Contains the necessary code determining the functions used in different parts of pipeline.
+  - **Functions**: Contains the function scripts used in the pipeline
+    - **Vesla_functions_COD.r**: An R-file containing the script of all functions needed to execute the analysis pipeline.
+- **_targets**: Contains objects produced and used by the **targets** package (NOTE! Objects produced are not committed to this repository, but will be produced by the pipeline if run).
 
 Full structure and files in the repository:
-
 ```
 +-- data
-|   +-- Otantalista_SV7_humuspitoisuus_jarvet_vesimuodostumat.csv
+|   \-- Otantalista_SV7_humuspitoisuus_jarvet_vesimuodostumat.csv
 +-- output
 |   +-- COD_GAM_fit_tidy_ENG.csv
 |   +-- COD_GAM_fit_tidy_FIN.csv
@@ -24,47 +30,12 @@ Full structure and files in the repository:
 |   \-- VESLA_COD_trends.csv
 +-- README.md
 +-- script
-|   +-- Functions
-|   |   +-- Vesla_functions_COD.r
+|   \-- Functions
+|   |   \-- Vesla_functions_COD.r
 +-- VESLA_COD.Rproj
 +-- _targets
 |   +-- meta
-|   |   +-- meta
-|   |   +-- process
-|   |   +-- progress
-|   |   +-- tar_temp_11609973cfe
-|   |   +-- tar_temp_217c49fa78ab
-|   |   +-- tar_temp_23c03dc43f5b
-|   |   \-- tar_temp_e141fe8258b
 |   +-- objects
-|   |   +-- COD_fit_GAM_trend_output_tidy
-|   |   +-- COD_fit_trend_output
-|   |   +-- COD_fit_trend_output_tidy
-|   |   +-- COD_status_output
-|   |   +-- COD_trend_new
-|   |   +-- COD_trend_old
-|   |   +-- COD_trend_output_combined
-|   |   +-- COD_trend_output_new
-|   |   +-- COD_trend_output_old
-|   |   +-- Comparison_COD
-|   |   +-- GAM_fit_COD
-|   |   +-- outputfile1
-|   |   +-- outputfile2
-|   |   +-- VESLA_COD_data_combined
-|   |   +-- VESLA_COD_minimum_timeframe
-|   |   +-- VESLA_query_data
-|   |   +-- VESLA_raw_query_data
-|   |   +-- VESLA_results
-|   |   +-- VESLA_samples
-|   |   +-- VESLA_sampling_events
-|   |   +-- VESLA_sites_all_results
-|   |   +-- VESLA_site_ids
-|   |   +-- VESLA_summary_COD_data_Lake
-|   |   +-- VESLA_summary_COD_data_Site
-|   |   +-- VESLA_summary_COD_data_Site_comparison
-|   |   +-- VESLA_summary_COD_data_Site_new
-|   |   +-- VESLA_summary_COD_data_Site_old
-|   |   \-- VESLA_summary_stats_Lake
 |   \-- user
 \-- _targets.R
 ```
@@ -72,18 +43,22 @@ Full structure and files in the repository:
 
 The code is written in **R** (version 4.2.1) and takes advantage of R packages **targets**, **brms**, **readr**, **dplyr**, **tidyr**, **data.table** and **zoo**.
 
-The code for the indicator is primarily in two files: targets.R and Vesla_functions_COD.r. Below find a short description of contents in each of the files.
+The code for the indicator is primarily in two files: targets.R and Vesla_functions_COD.r. The former determines the analysis pipeline and the latter the functions used in it.
 
-### _targets.R 
+## Analysis pipeline 
 
-_targets.R -file determines the structure of the pipeline in the format required by the **targets** package. For more information on the logic of targets, see [targets manual](https://books.ropensci.org/targets/).
+In short, the process for the indicator production advances from **requesting data** from the Finnish Environment Institute administrated [VESLA 2.0 database API](https://rajapinnat.ymparisto.fi/api/vesla/2.0/) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure.
+
+The structure of the pipeline is in the format required by the **targets** package and it is configured in the _targets.R script file. 
+
+For more information on the logic and formatting of targets, see [targets manual](https://books.ropensci.org/targets/).
 
 ### Vesla_functions_COD.r
 Vesla_functions_COD.r determines the functions used in different steps of the pipeline. The functions can be categorized in four different stages of the pipeline: (1) obtaining (functions starting with `get_VESLA_`), (2) shaping (functions starting with `shape_VESLA_data_`), (3) summarizing (funcitons starting with `summarize_VESLA_data_`), and (4) analyzing (functions starting with `analyze_VESLA_data`) data obtained from the [VESLA 2.0 database](https://rajapinnat.ymparisto.fi/api/vesla/2.0/).
 
 ### Process description
 
-In short, the process for the indicator production advances from **requesting data from the VESLA-database API** (, administrated by the Finnish Environment Institute) and proceeds through **data filtering and processing steps** to a **fitted generalized additive mixed effects model** taking into account the hierarchical data structure.
+
 
 An interactive graphical description of the process can be found [here](test_process.html)
 
